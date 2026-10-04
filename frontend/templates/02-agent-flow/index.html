@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgentFlow AI — Next-Gen Autonomous AI Platform</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 1. NAVIGATION BAR TEMPLATE -->
+  <nav class="nav-bar">
+    <div class="logo">⚡ AgentFlow<span>AI</span> <span class="status-badge pulse">LIVE 2.4</span></div>
+    <div class="nav-links">
+      <a href="#workflow">Workflow Canvas</a>
+      <a href="#apps">Deployed Apps</a>
+      <a href="#services">AI Agents</a>
+      <a href="#compare">Comparison</a>
+      <a href="#calculator">ROI Calc</a>
+    </div>
+    <button class="nav-cta open-modal-btn">Book Strategy Call →</button>
+  </nav>
+
+  <!-- 2. HERO BANNER TEMPLATE WITH METRIC HIGHLIGHTS -->
+  <header class="hero">
+    <div class="badge-pill">⚡ ZERO CODE REQUIRED · LIVE IN 3–7 DAYS</div>
+    <h1>Deploy <span>Autonomous AI Employees</span> Directly into Your Business</h1>
+    <p class="hero-sub">Replace manual workflows with 24/7 AI calling agents, automated CRM lead capture, and instant document processors.</p>
+    
+    <div class="hero-actions">
+      <button class="primary-btn open-modal-btn">Build Your AI Agent →</button>
+      <a href="#workflow" class="secondary-btn">View Live Demo Canvas</a>
+    </div>
+
+    <!-- Quick Stats Grid Component -->
+    <div class="hero-stats">
+      <div class="stat-item"><span class="stat-num">3–7 Days</span><span class="stat-lbl">Deployment Speed</span></div>
+      <div class="stat-item"><span class="stat-num">100%</span><span class="stat-lbl">Code & Data Ownership</span></div>
+      <div class="stat-item"><span class="stat-num">&lt; 60s</span><span class="stat-lbl">Lead Response Time</span></div>
+      <div class="stat-item"><span class="stat-num">24/7</span><span class="stat-lbl">Active Execution</span></div>
+    </div>
+  </header>
+
+  <!-- 3. TEMPLATE ELEMENT: VISUAL WORKFLOW NODE CANVAS -->
+  <section id="workflow" class="section-container">
+    <div class="section-title">
+      <span class="sub-tag">FLOW ARCHITECTURE</span>
+      <h2>Interactive AI Agent Canvas</h2>
+      <p>Click on any workflow node below to test how data routes through autonomous agents.</p>
+    </div>
+
+    <div class="workflow-canvas">
+      <div class="node-card active" data-node="trigger">
+        <div class="node-header"><span class="icon">📥</span> Trigger</div>
+        <h4>New Lead / Missed Call</h4>
+        <p>Google Maps / WhatsApp / Web Form</p>
+      </div>
+
+      <div class="flow-arrow">➔</div>
+
+      <div class="node-card" data-node="ai-agent">
+        <div class="node-header"><span class="icon">🤖</span> AI Agent Node</div>
+        <h4>Voice & Context Engine</h4>
+        <p>Analyzes intent, qualifies interest</p>
+      </div>
+
+      <div class="flow-arrow">➔</div>
+
+      <div class="node-card" data-node="output">
+        <div class="node-header"><span class="icon">📊</span> Action / Output</div>
+        <h4>CRM & Hot Lead Handoff</h4>
+        <p>WhatsApp alert sent to sales team</p>
+      </div>
+    </div>
+
+    <!-- Live Execution Status Bar -->
+    <div class="canvas-console" id="consoleBox">
+      <span class="console-status">● AGENT IDLE:</span> Click a node above to simulate operational pipeline execution.
+    </div>
+  </section>
+
+  <!-- 4. TEMPLATE ELEMENT: TABBED DEPLOYED APPS SHOWCASE -->
+  <section id="apps" class="section-container">
+    <div class="section-title">
+      <span class="sub-tag">PRODUCTION SYSTEMS</span>
+      <h2>Built & Deployed Production Apps</h2>
+      <p>Real production platforms built on AgentFlow infrastructure.</p>
+    </div>
+
+    <div class="tabs-header">
+      <button class="tab-btn active" data-tab="isp">LocalNet ISP Manager</button>
+      <button class="tab-btn" data-tab="lab">DARL Quotation Generator</button>
+      <button class="tab-btn" data-tab="luxe">CraveFlow Food Storefront</button>
+    </div>
+
+    <div class="tab-content-box">
+      <div id="isp-content" class="tab-panel active">
+        <div class="panel-grid">
+          <div class="panel-info">
+            <h3>LocalNet ISP Billing & Customer Platform</h3>
+            <p>Automated billing system integrated with Razorpay, instant WhatsApp payment reminders, and customer self-service bots.</p>
+            <div class="tech-stack"><span class="tech-tag">Next.js</span><span class="tech-tag">PostgreSQL</span><span class="tech-tag">Prisma</span><span class="tech-tag">WhatsApp API</span></div>
+            <button class="primary-btn open-modal-btn">Request Custom Build</button>
+          </div>
+          <div class="panel-preview-card">
+            <div class="preview-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span> Live Dashboard</div>
+            <div class="preview-body">
+              <div class="metric-row"><span>Active Subscribers:</span> <strong>2,410</strong></div>
+              <div class="metric-row"><span>Auto-Reminders Sent:</span> <strong>18,400+</strong></div>
+              <div class="metric-row"><span>Monthly Auto-Collect:</span> <strong>₹14.2 Lakhs</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="lab-content" class="tab-panel">
+        <div class="panel-grid">
+          <div class="panel-info">
+            <h3>DARL Automated Quotation Engine</h3>
+            <p>Generates complex multi-parameter commercial testing quotations in under 30 seconds for food testing laboratories.</p>
+            <div class="tech-stack"><span class="tech-tag">React</span><span class="tech-tag">Python RAG</span><span class="tech-tag">PDF Auto-Gen</span></div>
+            <button class="primary-btn open-modal-btn">Request Demo Access</button>
+          </div>
+          <div class="panel-preview-card">
+            <div class="preview-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span> Lab System</div>
+            <div class="preview-body">
+              <div class="metric-row"><span>PDFs Generated Today:</span> <strong>142</strong></div>
+              <div class="metric-row"><span>Accuracy Score:</span> <strong>99.9%</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="luxe-content" class="tab-panel">
+        <div class="panel-grid">
+          <div class="panel-info">
+            <h3>CraveFlow Luxe Food Platform</h3>
+            <p>Direct consumer food delivery storefront featuring subscription meal plans and automated order routing.</p>
+            <div class="tech-stack"><span class="tech-tag">Tailwind</span><span class="tech-tag">shadcn/ui</span><span class="tech-tag">Vite</span></div>
+            <button class="primary-btn open-modal-btn">View Store Architecture</button>
+          </div>
+          <div class="panel-preview-card">
+            <div class="preview-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span> Store Analytics</div>
+            <div class="preview-body">
+              <div class="metric-row"><span>Active Subscriptions:</span> <strong>850+</strong></div>
+              <div class="metric-row"><span>Dispatch Time:</span> <strong>&lt; 12 mins</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. TEMPLATE ELEMENT: AI AGENT SERVICES WITH DRAWERS -->
+  <section id="services" class="section-container">
+    <div class="section-title">
+      <span class="sub-tag">AI SYSTEMS</span>
+      <h2>Modular AI Employee Suite</h2>
+      <p>Select any specialized agent system tailored for direct setup.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card" data-service="calling">
+        <span class="card-badge">VOICE & COLD CALLS</span>
+        <h3>AI Lead + Calling System</h3>
+        <p>Scrapes Google Maps leads, makes voice calls, scores prospect interest, and pushes hot leads straight to WhatsApp.</p>
+        <button class="view-details-btn">View Drawer Specs →</button>
+      </div>
+
+      <div class="card" data-service="employee">
+        <span class="card-badge">OPERATIONS</span>
+        <h3>Digital Employee System</h3>
+        <p>Replaces administrative tasks across invoicing, customer updates, CRM sync, and daily executive summaries.</p>
+        <button class="view-details-btn">View Drawer Specs →</button>
+      </div>
+
+      <div class="card" data-service="tender">
+        <span class="card-badge">DOCUMENT RAG</span>
+        <h3>Tender Analysis AI</h3>
+        <p>Processes 200+ page tender PDFs in 2 minutes. Summarizes eligibility clauses and risk factors automatically.</p>
+        <button class="view-details-btn">View Drawer Specs →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. TEMPLATE ELEMENT: COMPARISON TABLE -->
+  <section id="compare" class="section-container">
+    <div class="section-title">
+      <span class="sub-tag">WHY AGENTFLOW</span>
+      <h2>Traditional Agencies vs AgentFlow AI</h2>
+    </div>
+
+    <div class="table-wrapper">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Feature / Parameter</th>
+            <th>Traditional Agencies / Staff</th>
+            <th class="highlight-col">⚡ AgentFlow AI Platform</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Deployment Time</strong></td>
+            <td>4–8 Weeks Onboarding</td>
+            <td class="highlight-col"><mark>3–7 Days Live System</mark></td>
+          </tr>
+          <tr>
+            <td><strong>Operational Hours</strong></td>
+            <td>8 Hours / 5 Days a week</td>
+            <td class="highlight-col"><mark>24 Hours / 365 Days non-stop</mark></td>
+          </tr>
+          <tr>
+            <td><strong>Data Ownership</strong></td>
+            <td>Hostage Data / Monthly Lock-in</td>
+            <td class="highlight-col"><mark>100% Full Code Ownership</mark></td>
+          </tr>
+          <tr>
+            <td><strong>Lead Response Time</strong></td>
+            <td>2–5 Hours average</td>
+            <td class="highlight-col"><mark>&lt; 60 Seconds Instant Response</mark></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 7. TEMPLATE ELEMENT: INTERACTIVE ROI CALCULATOR -->
+  <section id="calculator" class="section-container">
+    <div class="section-title">
+      <span class="sub-tag">FINANCIAL ESTIMATOR</span>
+      <h2>Interactive Tax & Cost Calculator</h2>
+    </div>
+
+    <div class="calc-box">
+      <div class="calc-controls">
+        <label for="serviceTier">Select Automation Package:</label>
+        <select id="serviceTier">
+          <option value="21999">Digital Employee System (₹21,999/mo)</option>
+          <option value="35000">AI Calling + Lead Engine (₹35,000/mo)</option>
+          <option value="50000">Enterprise AI Infrastructure (₹50,000/mo)</option>
+        </select>
+
+        <label for="taxRate">Applicable GST Rate:</label>
+        <select id="taxRate">
+          <option value="0.18">18% Standard GST</option>
+          <option value="0.12">12% Reduced Rate</option>
+        </select>
+      </div>
+
+      <div class="calc-results">
+        <div class="res-row"><span>Base Package Investment:</span><strong id="basePrice">₹21,999</strong></div>
+        <div class="res-row"><span>CGST (Half Rate):</span><strong id="cgstVal">₹1,980</strong></div>
+        <div class="res-row"><span>SGST (Half Rate):</span><strong id="sgstVal">₹1,980</strong></div>
+        <hr class="divider">
+        <div class="res-row total"><span>Total Monthly Investment:</span><strong id="totalPrice">₹25,959</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. TEMPLATE ELEMENT: FAQ ACCORDION -->
+  <section id="faq" class="section-container">
+    <div class="section-title">
+      <span class="sub-tag">FREQUENTLY ASKED</span>
+      <h2>System Questions</h2>
+    </div>
+
+    <div class="faq-accordion">
+      <div class="faq-item">
+        <button class="faq-question">How fast can our business go live? <span class="icon">+</span></button>
+        <div class="faq-answer"><p>Most systems go live within 3 to 7 business days. Day 1 is discovery, Days 2–4 are AI building & database integration, and Day 7 is live deployment.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">Do we retain full ownership of source code? <span class="icon">+</span></button>
+        <div class="faq-answer"><p>Yes, 100%. We hand over full GitHub access, database scripts, and API credentials. Zero vendor lock-in.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. MODALS & DRAWERS TEMPLATES -->
+  <div id="bookingModal" class="modal-overlay">
+    <div class="modal-content">
+      <button id="closeModalBtn" class="close-btn">&times;</button>
+      <h2>Book Your 15-Min Strategy Call</h2>
+      <p>Direct founder consultation to select your automation setup.</p>
+      
+      <form id="bookingForm">
+        <input type="text" placeholder="Full Name" required />
+        <input type="email" placeholder="Business Email Address" required />
+        <input type="tel" placeholder="Phone Number / WhatsApp" required />
+        <button type="submit" class="cta-btn">Confirm Call Slot →</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="serviceDrawer" class="drawer-overlay">
+    <div class="drawer-content">
+      <button id="closeDrawerBtn" class="close-btn">&times;</button>
+      <h2 id="drawerTitle">Service Overview</h2>
+      <p id="drawerDescription">System specifications...</p>
+      <ul id="drawerFeatures" class="drawer-features-list"></ul>
+      <button class="primary-btn open-modal-btn">Configure This Agent</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
