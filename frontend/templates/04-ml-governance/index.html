@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgentFlow OS — ML Governance & Compliance</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <nav class="nav-bar">
+    <div class="logo">🛡️ GovGuard<span>AI</span> <span class="badge">EU AI ACT COMPLIANT</span></div>
+    <div class="nav-actions">
+      <button id="triggerRetrainBtn" class="primary-btn">🔄 Trigger Retraining Pipeline</button>
+      <button id="exportAuditBtn" class="secondary-btn">📄 Export Audit Report</button>
+    </div>
+  </nav>
+
+  <!-- Main Workspace Layout -->
+  <main class="governance-workspace">
+    
+    <!-- Left Sidebar: Active Model Inventory -->
+    <aside class="sidebar-panel">
+      <div class="panel-card">
+        <h3>Model Registry</h3>
+        <p class="sub-text">Select an active production model to audit its metrics.</p>
+
+        <div class="model-list">
+          <div class="model-item active" data-model="credit-risk">
+            <div class="model-header">
+              <span class="model-name">Credit-Risk-Evaluator</span>
+              <span class="status-pill status-pass">COMPLIANT</span>
+            </div>
+            <div class="model-meta">v2.4.1 · XGBoost Classifier</div>
+          </div>
+
+          <div class="model-item" data-model="lead-qualification">
+            <div class="model-header">
+              <span class="model-name">Lead-Scoring-Agent</span>
+              <span class="status-pill status-warn">DRIFT WARN</span>
+            </div>
+            <div class="model-meta">v1.8.0 · LLM Fine-Tune</div>
+          </div>
+
+          <div class="model-item" data-model="tender-ocr">
+            <div class="model-header">
+              <span class="model-name">Tender-Document-RAG</span>
+              <span class="status-pill status-pass">COMPLIANT</span>
+            </div>
+            <div class="model-meta">v3.1.2 · Vision Transformer</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Risk KPI Card -->
+      <div class="panel-card">
+        <h3>Overall Risk Matrix</h3>
+        <div class="kpi-grid">
+          <div class="kpi-box">
+            <span class="kpi-val text-green">98.4%</span>
+            <span class="kpi-lbl">Fairness Index</span>
+          </div>
+          <div class="kpi-box">
+            <span class="kpi-val text-amber">0.08</span>
+            <span class="kpi-lbl">PSI Drift Score</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Execution Console Log -->
+      <div class="panel-card console-card">
+        <div class="console-header">
+          <span>● GOVERNANCE LOGS</span>
+          <span class="status-active">MONITORING</span>
+        </div>
+        <div class="console-body" id="governanceLogs">
+          <div class="log-entry">[Audit] Automated compliance check passed for Credit-Risk-Evaluator.</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Panel -->
+    <section class="viewport-panel">
+      
+      <!-- Top Overview Header Bar -->
+      <div class="model-summary-header">
+        <div>
+          <h1 id="activeModelTitle">Credit-Risk-Evaluator <span class="version-tag">v2.4.1</span></h1>
+          <p id="activeModelDesc" class="sub-text">Automated customer credit scoring model used in direct lending workflows.</p>
+        </div>
+        <div class="risk-badge badge-low" id="riskLevelBadge">Risk Tier: HIGH (EU AI Act Annex III)</div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="tabs-bar">
+        <button class="tab-btn active" data-tab="driftTab">📉 Drift & Health</button>
+        <button class="tab-btn" data-tab="fairnessTab">⚖️ Bias & Fairness</button>
+        <button class="tab-btn" data-tab="lineageTab">🔗 Lineage & Provenance</button>
+        <button class="tab-btn" data-tab="complianceTab">📋 Regulatory Checklist</button>
+      </div>
+
+      <!-- Tab View 1: Drift & Health -->
+      <div id="driftTab" class="tab-pane active">
+        <div class="pane-grid-2">
+          <div class="chart-card">
+            <h3>Population Stability Index (PSI) — Data Drift</h3>
+            <div class="canvas-box"><canvas id="driftChartCanvas"></canvas></div>
+          </div>
+          <div class="metrics-card">
+            <h3>Health Metrics</h3>
+            <div class="metric-row"><span>Accuracy (F1-Score):</span> <strong>0.924</strong></div>
+            <div class="metric-row"><span>Prediction Latency (p99):</span> <strong>42ms</strong></div>
+            <div class="metric-row"><span>Feature Drift (Age Feature):</span> <strong class="text-amber">0.12 PSI</strong></div>
+            <div class="metric-row"><span>Missing Input Rate:</span> <strong>0.01%</strong></div>
+            <div class="metric-row"><span>Out-of-Bounds Values:</span> <strong>0.00%</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab View 2: Bias & Fairness -->
+      <div id="fairnessTab" class="tab-pane">
+        <div class="fairness-grid">
+          <div class="fairness-card">
+            <div class="f-header"><span>Disparate Impact Ratio</span> <strong class="text-green">0.94</strong></div>
+            <p class="sub-text">Threshold > 0.80. Model treats protected demographic groups equally.</p>
+            <div class="progress-bar"><div class="progress-fill fill-green" style="width: 94%;"></div></div>
+          </div>
+
+          <div class="fairness-card">
+            <div class="f-header"><span>Equalized Odds Parity</span> <strong class="text-green">0.91</strong></div>
+            <p class="sub-text">False positive rates are balanced across income brackets.</p>
+            <div class="progress-bar"><div class="progress-fill fill-green" style="width: 91%;"></div></div>
+          </div>
+
+          <div class="fairness-card">
+            <div class="f-header"><span>Demographic Parity Difference</span> <strong class="text-green">0.03</strong></div>
+            <p class="sub-text">Threshold &lt; 0.10. Minimal variance in selection rate.</p>
+            <div class="progress-bar"><div class="progress-fill fill-green" style="width: 85%;"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab View 3: Lineage & Provenance -->
+      <div id="lineageTab" class="tab-pane">
+        <div class="timeline-container">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h4>Model Promoted to Production</h4>
+              <p class="sub-text">Approved by Compliance Officer · SHA-256 Hash: <code>a8f9c1...3e7d</code></p>
+              <span class="timeline-time">Oct 1, 2026 — 14:22 UTC</span>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h4>Automated Bias Audit Executed</h4>
+              <p class="sub-text">Passed 14 fairness constraints on validation dataset v2.4.</p>
+              <span class="timeline-time">Sep 28, 2026 — 09:15 UTC</span>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h4>Training Dataset Artifact Registered</h4>
+              <p class="sub-text">Dataset: <code>credit_cards_v2026_q3.csv</code> (1.4M rows, sanitized)</p>
+              <span class="timeline-time">Sep 25, 2026 — 11:00 UTC</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab View 4: Regulatory Checklist -->
+      <div id="complianceTab" class="tab-pane">
+        <div class="checklist-wrapper">
+          <div class="check-item">
+            <input type="checkbox" checked disabled id="c1">
+            <label for="c1">
+              <strong>Human Oversight & Intervention Enabled</strong>
+              <p class="sub-text">EU AI Act Article 14: Manual override drawer configured for high-confidence rejections.</p>
+            </label>
+          </div>
+
+          <div class="check-item">
+            <input type="checkbox" checked disabled id="c2">
+            <label for="c2">
+              <strong>Training Data Governance & Quality Audited</strong>
+              <p class="sub-text">EU AI Act Article 10: Training dataset vetted for representation biases and null values.</p>
+            </label>
+          </div>
+
+          <div class="check-item">
+            <input type="checkbox" checked disabled id="c3">
+            <label for="c3">
+              <strong>Automated Log Generation (Traceability)</strong>
+              <p class="sub-text">NIST AI RMF: Every prediction ID recorded with input embeddings and output scores.</p>
+            </label>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Retraining Confirmation Modal -->
+  <div id="retrainModal" class="modal-overlay">
+    <div class="modal-card">
+      <button class="close-modal">&times;</button>
+      <h2>Trigger Pipeline Retraining</h2>
+      <p class="sub-text">This will pull the latest sanitized dataset and trigger an automated ML pipeline evaluation.</p>
+      
+      <div class="modal-form">
+        <label for="retrainReason">Retraining Trigger Reason:</label>
+        <select id="retrainReason">
+          <option value="drift">Feature Drift Threshold Exceeded</option>
+          <option value="scheduled">Scheduled Monthly Cycle</option>
+          <option value="bias">Fairness Mitigation Update</option>
+        </select>
+
+        <button id="confirmRetrainBtn" class="primary-btn">🚀 Start Retraining Job</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
