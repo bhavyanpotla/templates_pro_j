@@ -3,34 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AgentFlow OS — Template Portal</title>
+  <title>AgentFlow OS — Initializing Portal</title>
   <style>
-    /* Global Reset & Theme Tokens */
     :root {
-      --bg: #070a11;
-      --card-bg: #0f172a;
+      --bg: #05070c;
       --card-border: #1e293b;
       --primary: #10b981;
-      --primary-glow: rgba(16, 185, 129, 0.25);
       --accent: #3b82f6;
-      --text-main: #f8fafc;
       --text-muted: #94a3b8;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
-    body { background: var(--bg); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
-
-    /* Initial Boot Screen Overlay */
-    #bootOverlay {
-      position: fixed;
-      inset: 0;
-      background: #05070c;
-      z-index: 999;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      background: var(--bg);
+      color: #fff;
+      height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      transition: opacity 0.6s ease, visibility 0.6s;
+      font-family: system-ui, -apple-system, sans-serif;
+      overflow: hidden;
     }
 
     /* Portal Loader Graphics */
@@ -41,14 +35,16 @@
       border-top: 3px solid var(--primary);
       border-right: 3px solid var(--accent);
       border-radius: 50%;
-      animation: spin 1s linear infinite;
+      animation: spin 0.8s linear infinite;
       margin-bottom: 24px;
     }
 
-    @keyframes spin { 100% { transform: rotate(360deg); } }
+    @keyframes spin { 
+      100% { transform: rotate(360deg); } 
+    }
 
     .boot-text {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       letter-spacing: 2px;
       color: var(--primary);
       font-family: monospace;
@@ -56,185 +52,26 @@
     }
 
     .boot-sub {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      font-family: monospace;
-    }
-
-    /* Portal Content Layout */
-    .portal-nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 8%;
-      border-bottom: 1px solid var(--card-border);
-      background: rgba(15, 23, 42, 0.8);
-      backdrop-filter: blur(12px);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    .logo { font-size: 1.25rem; font-weight: 800; display: flex; align-items: center; gap: 8px; }
-    .logo span { color: var(--primary); }
-    .status-badge { font-size: 0.65rem; background: rgba(16,185,129,0.15); color: var(--primary); border: 1px solid var(--primary); padding: 2px 8px; border-radius: 12px; }
-
-    .hero-container { text-align: center; max-width: 800px; margin: 60px auto 40px; padding: 0 20px; }
-    .pill { display: inline-block; background: rgba(59, 130, 246, 0.1); border: 1px solid var(--accent); color: var(--accent); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; margin-bottom: 16px; }
-    h1 { font-size: 2.8rem; font-weight: 900; line-height: 1.2; margin-bottom: 16px; }
-    h1 span { background: linear-gradient(135deg, #10b981, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .sub-title { color: var(--text-muted); font-size: 1.1rem; }
-
-    /* Templates Grid */
-    .grid-container {
-      max-width: 1100px;
-      margin: 0 auto 80px;
-      padding: 0 20px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
-    }
-
-    .template-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .template-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--primary);
-      box-shadow: 0 8px 24px var(--primary-glow);
-    }
-
-    .card-tag { font-size: 0.7rem; color: var(--primary); font-weight: 800; background: rgba(16,185,129,0.1); padding: 4px 8px; border-radius: 4px; display: inline-block; margin-bottom: 12px; }
-    .template-card h3 { font-size: 1.2rem; margin-bottom: 8px; }
-    .template-card p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px; line-height: 1.5; }
-    
-    .launch-btn {
-      background: var(--bg);
-      border: 1px solid var(--card-border);
-      color: var(--primary);
-      font-weight: 700;
-      font-size: 0.85rem;
-      padding: 10px;
-      border-radius: 8px;
-      text-align: center;
-      transition: background 0.2s, color 0.2s;
-    }
-
-    .template-card:hover .launch-btn {
-      background: var(--primary);
-      color: #000;
-    }
-
-    /* Terminal Console Bar at Bottom */
-    .status-bar {
-      margin-top: auto;
-      background: #000;
-      border-top: 1px solid var(--card-border);
-      padding: 12px 20px;
-      font-family: monospace;
       font-size: 0.8rem;
       color: var(--text-muted);
-      display: flex;
-      justify-content: space-between;
+      font-family: monospace;
     }
   </style>
 </head>
 <body>
 
-  <!-- Boot Loader Overlay -->
-  <div id="bootOverlay">
-    <div class="loader-ring"></div>
-    <div class="boot-text">INITIALIZING PORTAL SYSTEM</div>
-    <div class="boot-sub" id="bootProgress">Loading static assets...</div>
-  </div>
-
-  <!-- Header Nav -->
-  <nav class="portal-nav">
-    <div class="logo">⚡ AgentFlow<span>OS</span> <span class="status-badge">ONLINE 2026</span></div>
-    <a href="https://github.com" target="_blank" style="color: var(--text-muted); text-decoration: none; font-size: 0.85rem;">GitHub Repo ↗</a>
-  </nav>
-
-  <!-- Hero Banner -->
-  <header class="hero-container">
-    <span class="pill">GITHUB PAGES PORTAL ENGINE</span>
-    <h1>Select AI Template Environment</h1>
-    <p class="sub-title">Launch full-suite production templates directly inside your browser.</p>
-  </header>
-
-  <!-- Template Cards Grid -->
-  <main class="grid-container">
-    
-    <!-- Template 1 -->
-    <a href="frontend/templates/01-copilot/index.html" class="template-card">
-      <div>
-        <span class="card-tag">TEMPLATE #01</span>
-        <h3>AI Copilot Interface</h3>
-        <p>Chat-style interface with live stream responses, prompt actions, and sidebar history.</p>
-      </div>
-      <div class="launch-btn">Launch Workspace →</div>
-    </a>
-
-    <!-- Template 2 -->
-    <a href="frontend/templates/02-agent-flow/index.html" class="template-card">
-      <div>
-        <span class="card-tag">TEMPLATE #02</span>
-        <h3>AgentFlow Landing Page</h3>
-        <p>Interactive landing platform featuring workflow node canvas, ROI calculators, and pricing tiers.</p>
-      </div>
-      <div class="launch-btn">Launch Landing Page →</div>
-    </a>
-
-    <!-- Template 3 -->
-    <a href="frontend/templates/03-text-to-chart/index.html" class="template-card">
-      <div>
-        <span class="card-tag">TEMPLATE #03</span>
-        <h3>Text-to-Chart Synthesizer</h3>
-        <p>Natural language chart renderer with visual presets, Chart.js engine, and CSV exports.</p>
-      </div>
-      <div class="launch-btn">Launch Chart Engine →</div>
-    </a>
-
-    <!-- Template 4 -->
-    <a href="frontend/templates/04-ml-governance/index.html" class="template-card">
-      <div>
-        <span class="card-tag">TEMPLATE #04</span>
-        <h3>ML Governance Center</h3>
-        <p>Enterprise AI safety portal with drift monitoring, fairness checks, and EU AI Act auditing.</p>
-      </div>
-      <div class="launch-btn">Launch Control Center →</div>
-    </a>
-
-  </main>
-
-  <!-- Status Bar Footer -->
-  <footer class="status-bar">
-    <span>● GITHUB PAGES STATUS: ACTIVE</span>
-    <span id="timestamp"></span>
-  </footer>
+  <div class="loader-ring"></div>
+  <div class="boot-text">INITIALIZING SYSTEM PORTAL</div>
+  <div class="boot-sub" id="bootProgress">Connecting to host environment...</div>
 
   <script>
-    // Boot sequence animation simulation
     document.addEventListener('DOMContentLoaded', () => {
-      const bootOverlay = document.getElementById('bootOverlay');
       const bootProgress = document.getElementById('bootProgress');
-      const timestamp = document.getElementById('timestamp');
-
-      timestamp.textContent = new Date().toUTCString();
 
       const steps = [
-        'Checking GitHub Pages deployment...',
-        'Linking frontend paths...',
-        'All templates ready!'
+        'Checking static assets...',
+        'Routing to core interface...',
+        'Redirecting now...'
       ];
 
       let stepIdx = 0;
@@ -244,12 +81,10 @@
           stepIdx++;
         } else {
           clearInterval(interval);
-          bootOverlay.style.opacity = '0';
-          setTimeout(() => {
-            bootOverlay.style.visibility = 'hidden';
-          }, 600);
+          // Redirect directly to frontend/index.html
+          window.location.href = 'frontend/index.html';
         }
-      }, 350);
+      }, 400);
     });
   </script>
 </body>
