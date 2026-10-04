@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEXUS OS | Copilot Workspace</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="app-container">
+
+    <!-- Slide-out / Collapsible Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="brand">
+          <div class="brand-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <div class="brand-text">
+            <h2>NEXUS OS</h2>
+            <span class="version-tag">v5.2 HYPER-CORE</span>
+          </div>
+        </div>
+        <button class="icon-btn mobile-close-btn" id="closeSidebarBtn" title="Close Sidebar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <button class="new-chat-btn" id="newChatBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+        <span>New Conversation</span>
+      </button>
+
+      <div class="sidebar-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        <input type="text" id="searchInput" placeholder="Search history...">
+      </div>
+
+      <div class="history-section">
+        <span class="history-label">CONVERSATIONS</span>
+        <div class="history-list" id="historyList">
+          <!-- Conversation items dynamically injected -->
+        </div>
+      </div>
+
+      <div class="sidebar-footer">
+        <button class="footer-btn" id="clearAllBtn" title="Clear All History">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+          <span>Clear History</span>
+        </button>
+        <button class="footer-btn" id="settingsBtn" title="Settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Chat Content Container -->
+    <main class="chat-viewport">
+
+      <!-- Header Control Bar -->
+      <header class="app-header">
+        <div class="header-left">
+          <button class="icon-btn" id="toggleSidebarBtn" title="Toggle Sidebar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+          <a href="/" class="icon-btn back-link" id="backBtn" title="Back to Dashboard">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+          </a>
+          <div class="header-title-group">
+            <h1 id="activeChatTitle">New Session</h1>
+            <span class="status-badge"><span class="pulse-dot"></span> SYNTHESIZER READY</span>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <button class="header-action-btn" id="clearChatBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            <span>Reset Canvas</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Scrollable Message Stream -->
+      <div class="messages-container" id="messagesContainer">
+        
+        <!-- Welcome Hero View (Shown when conversation is empty) -->
+        <div class="hero-screen" id="heroScreen">
+          <h1 class="hero-title">What will you build today?</h1>
+          <p class="hero-subtitle">Synthesize code, analyze cybersecurity logs, or construct AI architecture.</p>
+
+          <div class="suggestion-grid">
+            <button class="suggestion-card" data-prompt="Explain machine learning fundamentals">
+              <span class="card-icon">🧠</span>
+              <div class="card-text">
+                <strong>Machine Learning</strong>
+                <span>Explain core ML principles</span>
+              </div>
+            </button>
+
+            <button class="suggestion-card" data-prompt="Build a cybersecurity threat analysis script in Python">
+              <span class="card-icon">🛡️</span>
+              <div class="card-text">
+                <strong>Cybersecurity</strong>
+                <span>Python threat detection script</span>
+              </div>
+            </button>
+
+            <button class="suggestion-card" data-prompt="Help me write HTML CSS JavaScript responsive layout">
+              <span class="card-icon">💻</span>
+              <div class="card-text">
+                <strong>Web Architecture</strong>
+                <span>HTML, CSS & JS responsive design</span>
+              </div>
+            </button>
+
+            <button class="suggestion-card" data-prompt="Explain how neural networks process natural language">
+              <span class="card-icon">⚡</span>
+              <div class="card-text">
+                <strong>AI Systems</strong>
+                <span>NLP & Neural Processing</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Chat Stream Streamed In Dynamically -->
+        <div class="messages-list" id="messagesList"></div>
+      </div>
+
+      <!-- Bottom Chat Composer -->
+      <footer class="composer-container">
+        <form class="composer-box" id="chatForm">
+          <div class="composer-inputs">
+            <textarea 
+              id="chatInput" 
+              placeholder="Ask Copilot or request code synthesis..." 
+              rows="1"
+            ></textarea>
+          </div>
+
+          <div class="composer-actions">
+            <div class="action-left">
+              <button type="button" class="tool-btn" id="attachBtn" title="Attach Code/File">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
+              </button>
+              <button type="button" class="tool-btn" id="voiceBtn" title="Voice Input">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
+              </button>
+            </div>
+
+            <!-- Highly Polished Custom CSS Glow Send Button -->
+            <button type="submit" class="send-btn" id="sendBtn" disabled title="Send Message">
+              <span class="btn-glow"></span>
+              <span class="btn-content">
+                <span>Build now</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </span>
+            </button>
+          </div>
+        </form>
+        <p class="composer-footer-text">Nexus OS Copilot v5.2 • Local Neural Execution</p>
+      </footer>
+
+    </main>
+  </div>
+
+  <!-- Modal Popup for Settings -->
+  <div class="modal-backdrop" id="settingsModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Copilot Preferences</h3>
+        <button class="icon-btn" id="closeSettingsBtn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="setting-item">
+          <label>Neural Core Model</label>
+          <select id="modelSelect">
+            <option>Nexus Hyper-Core v5.2 (Fast)</option>
+            <option>Emerald Deep Reasoning v2</option>
+          </select>
+        </div>
+        <div class="setting-item">
+          <label>Auto-scroll to latest response</label>
+          <input type="checkbox" id="autoscrollCheck" checked>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
