@@ -196,6 +196,76 @@
 
       box-shadow: 0 0 12px #00ff9d;
     }
+
+    /* Audio Buttons */
+    .audio-button {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      background: rgba(0, 255, 157, 0.08);
+      border: 1px solid rgba(0, 255, 157, 0.35);
+      color: #00ff9d;
+      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .audio-button:hover {
+      transform: scale(1.08);
+      background: #00ff9d;
+      color: #020506;
+      box-shadow: 0 0 18px rgba(0, 255, 157, 0.45);
+    }
+
+    .audio-button:active {
+      transform: scale(0.94);
+    }
+
+    .audio-button.cyan {
+      color: #00f0ff;
+      border-color: rgba(0, 240, 255, 0.35);
+      background: rgba(0, 240, 255, 0.08);
+    }
+
+    .audio-button.cyan:hover {
+      background: #00f0ff;
+      color: #020506;
+      box-shadow: 0 0 18px rgba(0, 240, 255, 0.45);
+    }
+
+    .audio-button.emerald {
+      color: #10b981;
+      border-color: rgba(16, 185, 129, 0.35);
+      background: rgba(16, 185, 129, 0.08);
+    }
+
+    .audio-button.emerald:hover {
+      background: #10b981;
+      color: #020506;
+      box-shadow: 0 0 18px rgba(16, 185, 129, 0.45);
+    }
+
+    .audio-button.amber {
+      color: #ffb703;
+      border-color: rgba(255, 183, 3, 0.35);
+      background: rgba(255, 183, 3, 0.08);
+    }
+
+    .audio-button.amber:hover {
+      background: #ffb703;
+      color: #020506;
+      box-shadow: 0 0 18px rgba(255, 183, 3, 0.45);
+    }
+
+    .audio-button.playing {
+      animation: audioPulse 0.8s ease-in-out infinite;
+    }
+
+    @keyframes audioPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 8px currentColor; }
+      50% { transform: scale(1.12); box-shadow: 0 0 22px currentColor; }
+    }
   </style>
 </head>
 
@@ -441,11 +511,27 @@
         </div>
 
 
-        <button
+        <div class="flex items-center gap-2 shrink-0">
+
+          <button
+            type="button"
+            class="audio-button"
+            title="Play Copilot introduction"
+            onclick="event.stopPropagation(); playCardAudio('copilot', this)"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5L6 9H3v6h3l5 4V5z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.5 8.5a5 5 0 010 7M18.5 6a8.5 8.5 0 010 12" />
+            </svg>
+          </button>
+
+          <button
           class="px-4 py-2 rounded-xl bg-cyber-neon/10 group-hover:bg-cyber-neon text-[11px] font-mono font-bold text-cyber-neon group-hover:text-black border border-cyber-neon/30 transition-all shrink-0"
         >
           LAUNCH &rarr;
         </button>
+
+        </div>
 
       </div>
 
@@ -515,11 +601,27 @@
         </div>
 
 
-        <button
+        <div class="flex items-center gap-2 shrink-0">
+
+          <button
+            type="button"
+            class="audio-button cyan"
+            title="Play Gateway introduction"
+            onclick="event.stopPropagation(); playCardAudio('gateway', this)"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5L6 9H3v6h3l5 4V5z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.5 8.5a5 5 0 010 7M18.5 6a8.5 8.5 0 010 12" />
+            </svg>
+          </button>
+
+          <button
           class="px-4 py-2 rounded-xl bg-cyber-cyan/10 group-hover:bg-cyber-cyan text-[11px] font-mono font-bold text-cyber-cyan group-hover:text-black border border-cyber-cyan/30 transition-all shrink-0"
         >
           INSPECT &rarr;
         </button>
+
+        </div>
 
       </div>
 
@@ -589,11 +691,27 @@
         </div>
 
 
-        <button
+        <div class="flex items-center gap-2 shrink-0">
+
+          <button
+            type="button"
+            class="audio-button emerald"
+            title="Play Chart Engine introduction"
+            onclick="event.stopPropagation(); playCardAudio('chart', this)"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5L6 9H3v6h3l5 4V5z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.5 8.5a5 5 0 010 7M18.5 6a8.5 8.5 0 010 12" />
+            </svg>
+          </button>
+
+          <button
           class="px-4 py-2 rounded-xl bg-emerald-500/10 group-hover:bg-emerald-500 text-[11px] font-mono font-bold text-emerald-400 group-hover:text-black border border-emerald-500/30 transition-all shrink-0"
         >
           QUERY &rarr;
         </button>
+
+        </div>
 
       </div>
 
@@ -663,11 +781,27 @@
         </div>
 
 
-        <button
+        <div class="flex items-center gap-2 shrink-0">
+
+          <button
+            type="button"
+            class="audio-button amber"
+            title="Play Security introduction"
+            onclick="event.stopPropagation(); playCardAudio('security', this)"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5L6 9H3v6h3l5 4V5z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.5 8.5a5 5 0 010 7M18.5 6a8.5 8.5 0 010 12" />
+            </svg>
+          </button>
+
+          <button
           class="px-4 py-2 rounded-xl bg-amber-500/10 group-hover:bg-amber-500 text-[11px] font-mono font-bold text-amber-400 group-hover:text-black border border-amber-500/30 transition-all shrink-0"
         >
           MONITOR &rarr;
         </button>
+
+        </div>
 
       </div>
 
@@ -707,6 +841,18 @@
                 <span class="text-[8px] font-mono px-1.5 py-0.5 rounded bg-cyber-neon/10 text-cyber-neon border border-cyber-neon/30 shrink-0">
                   SYS_LEAD
                 </span>
+
+                <button
+                  type="button"
+                  class="audio-button"
+                  title="Play Bhavyan introduction"
+                  onclick="event.stopPropagation(); playCardAudio('bhavyan', this)"
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5L6 9H3v6h3l5 4V5z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.5 8.5a5 5 0 010 7M18.5 6a8.5 8.5 0 010 12" />
+                  </svg>
+                </button>
               </div>
               <p class="text-[11px] font-mono text-slate-400 mt-0.5">Core Architecture & Matrix Orchestration</p>
             </div>
@@ -727,6 +873,18 @@
                 <span class="text-[8px] font-mono px-1.5 py-0.5 rounded bg-cyber-cyan/10 text-cyber-cyan border border-cyber-cyan/30 shrink-0">
                   ENG_OPS
                 </span>
+
+                <button
+                  type="button"
+                  class="audio-button cyan"
+                  title="Play Deepak introduction"
+                  onclick="event.stopPropagation(); playCardAudio('deepak', this)"
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5L6 9H3v6h3l5 4V5z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.5 8.5a5 5 0 010 7M18.5 6a8.5 8.5 0 010 12" />
+                  </svg>
+                </button>
               </div>
               <p class="text-[11px] font-mono text-slate-400 mt-0.5">Distributed Pipelines & Stream Bus</p>
             </div>
@@ -747,6 +905,18 @@
                 <span class="text-[8px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 shrink-0">
                   AI_RESEARCH
                 </span>
+
+                <button
+                  type="button"
+                  class="audio-button emerald"
+                  title="Play Vishnu introduction"
+                  onclick="event.stopPropagation(); playCardAudio('vishnu', this)"
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5L6 9H3v6h3l5 4V5z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.5 8.5a5 5 0 010 7M18.5 6a8.5 8.5 0 010 12" />
+                  </svg>
+                </button>
               </div>
               <p class="text-[11px] font-mono text-slate-400 mt-0.5">Neural Synthesis & Inference Tuning</p>
             </div>
@@ -767,6 +937,18 @@
                 <span class="text-[8px] font-mono px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30 shrink-0">
                   DEV_SEC
                 </span>
+
+                <button
+                  type="button"
+                  class="audio-button amber"
+                  title="Play Hemanth introduction"
+                  onclick="event.stopPropagation(); playCardAudio('hemanth', this)"
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5L6 9H3v6h3l5 4V5z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.5 8.5a5 5 0 010 7M18.5 6a8.5 8.5 0 010 12" />
+                  </svg>
+                </button>
               </div>
               <p class="text-[11px] font-mono text-slate-400 mt-0.5">Guardrail Protocols & Model Governance</p>
             </div>
@@ -793,6 +975,67 @@
      *
      * frontend/index.html
      */
+
+    /*
+     * Audio files are stored at the repository root, outside frontend.
+     * Main page: frontend/index.html
+     * Therefore every audio path starts with ../audio/
+     */
+
+    const AUDIO_FILES = {
+      copilot: "../audio/copilot.mp3",
+      gateway: "../audio/gateway.mp3",
+      chart: "../audio/chart.mp3",
+      security: "../audio/security.mp3",
+      bhavyan: "../audio/bhavyan.mp3",
+      deepak: "../audio/deepak.mp3",
+      vishnu: "../audio/vishnu.mp3",
+      hemanth: "../audio/hemanth.mp3"
+    };
+
+    let currentAudio = null;
+    let currentAudioButton = null;
+
+    function playCardAudio(type, button) {
+
+      const audioPath = AUDIO_FILES[type];
+
+      if (!audioPath) {
+        console.error("Audio path not found for:", type);
+        return;
+      }
+
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+      }
+
+      if (currentAudioButton) {
+        currentAudioButton.classList.remove('playing');
+      }
+
+      const audio = new Audio(audioPath);
+
+      currentAudio = audio;
+      currentAudioButton = button;
+
+      button.classList.add('playing');
+
+      audio.play().catch(error => {
+        console.error("Audio could not be played:", error);
+        button.classList.remove('playing');
+      });
+
+      audio.addEventListener('ended', () => {
+        button.classList.remove('playing');
+
+        if (currentAudio === audio) {
+          currentAudio = null;
+          currentAudioButton = null;
+        }
+      });
+    }
+
 
     function navigateTo(url) {
       window.location.href = url;
