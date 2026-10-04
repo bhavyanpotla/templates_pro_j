@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexus OS — Text to Chart Synthesizer</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <nav class="nav-bar">
+    <div class="logo">📊 ChartSynth<span>AI</span> <span class="badge">v3.0 ENGINE</span></div>
+    <div class="nav-actions">
+      <button id="exportPngBtn" class="secondary-btn">📷 Export PNG</button>
+      <button id="exportCsvBtn" class="secondary-btn">📄 Export CSV</button>
+    </div>
+  </nav>
+
+  <!-- Main Grid Workspace -->
+  <main class="app-workspace">
+    
+    <!-- Left Panel: Prompt Controls & Presets -->
+    <aside class="control-panel">
+      <div class="panel-card">
+        <h3>Natural Language Prompt</h3>
+        <p class="sub-text">Type what data you want to visualize or click a preset prompt below.</p>
+
+        <form id="chartForm">
+          <textarea id="promptInput" placeholder="e.g., Show me monthly revenue vs expenses for Q1 with projected growth..." required>Show revenue breakdown across North America, Europe, and Asia for 2026</textarea>
+          
+          <div class="control-group">
+            <label for="chartTypeSelect">Target Chart Type:</label>
+            <select id="chartTypeSelect">
+              <option value="bar">Bar Chart</option>
+              <option value="line">Line Graph</option>
+              <option value="pie">Pie Chart</option>
+              <option value="doughnut">Doughnut Chart</option>
+              <option value="radar">Radar Comparison</option>
+            </select>
+          </div>
+
+          <button type="submit" id="generateBtn" class="primary-btn">⚡ Generate Visualization</button>
+        </form>
+      </div>
+
+      <!-- Quick Preset Badges -->
+      <div class="panel-card">
+        <h3>Sample Prompts</h3>
+        <div class="preset-badges">
+          <button class="preset-chip" data-prompt="Quarterly active user growth from Q1 to Q4" data-type="line">📈 User Growth (Line)</button>
+          <button class="preset-chip" data-prompt="Server uptime latency comparison across 5 global regions" data-type="radar">📡 Network Radar (Radar)</button>
+          <button class="preset-chip" data-prompt="Product category market share distribution" data-type="doughnut">🍩 Market Share (Doughnut)</button>
+          <button class="preset-chip" data-prompt="Monthly revenue breakdown for North America, Europe, Asia" data-type="bar">📊 Regional Revenue (Bar)</button>
+        </div>
+      </div>
+
+      <!-- Execution Console Log -->
+      <div class="panel-card console-card">
+        <div class="console-header">
+          <span>● PARSER LOGS</span>
+          <span class="status-ready" id="parserStatus">READY</span>
+        </div>
+        <div class="console-body" id="consoleLogs">
+          <div class="log-entry">[System] NLP Engine initialized. Awaiting user input prompt...</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Right Panel: Output Showcase Viewports -->
+    <section class="display-panel">
+      
+      <!-- Workspace Tabs -->
+      <div class="tabs-bar">
+        <button class="tab-btn active" data-view="canvasView">📊 Interactive Canvas</button>
+        <button class="tab-btn" data-view="tableView">📋 Data Table</button>
+        <button class="tab-btn" data-view="jsonView">⚙️ Config JSON</button>
+      </div>
+
+      <!-- Tab Viewport 1: Canvas Chart -->
+      <div id="canvasView" class="view-pane active">
+        <div class="canvas-wrapper">
+          <canvas id="mainChartCanvas"></canvas>
+        </div>
+      </div>
+
+      <!-- Tab Viewport 2: Data Table -->
+      <div id="tableView" class="view-pane">
+        <div class="table-wrapper">
+          <table class="data-table" id="dataTable">
+            <thead>
+              <tr id="tableHead"><th>Category / Label</th><th>Value</th></tr>
+            </thead>
+            <tbody id="tableBody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab Viewport 3: Raw JSON Config -->
+      <div id="jsonView" class="view-pane">
+        <pre class="json-code" id="jsonOutput"><code>// Generated Chart.js Config JSON will appear here</code></pre>
+      </div>
+
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
