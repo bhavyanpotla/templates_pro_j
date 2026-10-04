@@ -1,0 +1,74 @@
+:root {
+  --bg: #0b0f19;
+  --card-bg: #111827;
+  --card-border: #1f2937;
+  --primary: #10b981;
+  --primary-hover: #059669;
+  --accent: #3b82f6;
+  --text-main: #f9fafb;
+  --text-muted: #9ca3af;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+body { background: var(--bg); color: var(--text-main); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+
+/* Navigation */
+.nav-bar { display: flex; justify-content: space-between; align-items: center; padding: 14px 24px; background: rgba(17, 24, 39, 0.9); border-bottom: 1px solid var(--card-border); }
+.logo { font-size: 1.25rem; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+.logo span { color: var(--primary); }
+.badge { font-size: 0.65rem; background: rgba(16, 185, 129, 0.15); border: 1px solid var(--primary); color: var(--primary); padding: 2px 8px; border-radius: 10px; }
+.nav-actions { display: flex; gap: 10px; }
+
+.secondary-btn { background: #1f2937; color: var(--text-main); border: 1px solid var(--card-border); padding: 8px 14px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.85rem; transition: 0.2s; }
+.secondary-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+/* Main Workspace */
+.app-workspace { display: grid; grid-template-columns: 380px 1fr; gap: 20px; padding: 20px; flex: 1; overflow: hidden; }
+
+/* Control Panel */
+.control-panel { display: flex; flex-direction: column; gap: 15px; overflow-y: auto; }
+.panel-card { background: var(--card-bg); border: 1px solid var(--card-border); padding: 20px; border-radius: 12px; }
+.panel-card h3 { font-size: 1rem; margin-bottom: 6px; }
+.sub-text { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 15px; }
+
+textarea { width: 100%; height: 90px; background: #0b0f19; border: 1px solid var(--card-border); color: #fff; padding: 12px; border-radius: 8px; font-size: 0.9rem; resize: none; margin-bottom: 12px; }
+textarea:focus { outline: none; border-color: var(--primary); }
+
+.control-group { margin-bottom: 15px; }
+.control-group label { display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 5px; }
+select { width: 100%; padding: 10px; background: #0b0f19; border: 1px solid var(--card-border); color: #fff; border-radius: 8px; font-size: 0.9rem; }
+
+.primary-btn { width: 100%; background: var(--primary); color: #000; border: none; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+.primary-btn:hover { background: var(--primary-hover); }
+
+/* Presets */
+.preset-badges { display: flex; flex-direction: column; gap: 8px; }
+.preset-chip { background: #0b0f19; border: 1px solid var(--card-border); color: var(--text-muted); padding: 8px 12px; border-radius: 6px; font-size: 0.8rem; text-align: left; cursor: pointer; transition: 0.2s; }
+.preset-chip:hover { border-color: var(--accent); color: var(--text-main); }
+
+/* Console Logs */
+.console-card { background: #000; border-color: var(--card-border); }
+.console-header { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 10px; border-bottom: 1px solid var(--card-border); padding-bottom: 6px; }
+.status-ready { color: var(--primary); font-weight: bold; }
+.console-body { font-family: monospace; font-size: 0.75rem; color: #10b981; height: 90px; overflow-y: auto; display: flex; flex-direction: column; gap: 4px; }
+
+/* Display Panel & Tabs */
+.display-panel { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; display: flex; flex-direction: column; overflow: hidden; }
+.tabs-bar { display: flex; border-bottom: 1px solid var(--card-border); background: #0b0f19; }
+.tab-btn { background: none; border: none; color: var(--text-muted); padding: 14px 20px; font-size: 0.9rem; font-weight: 600; cursor: pointer; border-bottom: 2px solid transparent; }
+.tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); background: var(--card-bg); }
+
+.view-pane { display: none; padding: 25px; flex: 1; overflow: auto; }
+.view-pane.active { display: block; }
+
+/* Chart View */
+.canvas-wrapper { width: 100%; height: 100%; min-height: 400px; display: flex; justify-content: center; align-items: center; }
+
+/* Table View */
+.table-wrapper { width: 100%; overflow-x: auto; }
+.data-table { width: 100%; border-collapse: collapse; text-align: left; }
+.data-table th, .data-table td { padding: 12px 16px; border-bottom: 1px solid var(--card-border); font-size: 0.9rem; }
+.data-table th { background: #0b0f19; color: var(--text-muted); }
+
+/* JSON View */
+.json-code { background: #0b0f19; padding: 20px; border-radius: 8px; font-family: monospace; font-size: 0.85rem; color: #3b82f6; overflow: auto; height: 100%; }
