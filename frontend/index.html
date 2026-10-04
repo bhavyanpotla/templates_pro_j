@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en" class="dark">
 
 <head>
@@ -697,6 +697,907 @@
 
 
     // 3D Card Tilt
+
+    document
+      .querySelectorAll('.glass-card-compact')
+      .forEach(card => {
+
+        card.addEventListener('mousemove', (e) => {
+
+          const rect = card.getBoundingClientRect();
+
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+
+          const rotateX =
+            ((y - centerY) / centerY) * -10;
+
+          const rotateY =
+            ((x - centerX) / centerX) * 10;
+
+          card.style.transform =
+            `perspective(800px)
+             rotateX(${rotateX}deg)
+             rotateY(${rotateY}deg)
+             scale3d(1.015, 1.015, 1.015)`;
+
+        });
+
+
+        card.addEventListener('mouseleave', () => {
+
+          card.style.transform =
+            `perspective(800px)
+             rotateX(0deg)
+             rotateY(0deg)
+             scale3d(1, 1, 1)`;
+
+        });
+
+      });
+
+
+    // Real-Time SSE State Handler
+
+    new AgentStreamClient((state) => {
+
+      document.getElementById('active-task').innerText =
+        state.active_task || 'Idle Horizon';
+
+
+      const riskEl =
+        document.getElementById('risk-score');
+
+
+      riskEl.innerText =
+        `${state.risk_score} (${
+          state.risk_score > 0.5
+            ? 'HIGH DRIFT DETECTED'
+            : 'NOMINAL OPERATIONAL'
+        })`;
+
+
+      riskEl.className =
+        state.risk_score > 0.5
+          ? 'text-xs font-mono text-cyber-amber font-bold animate-pulse'
+          : 'text-xs font-mono text-cyber-neon font-bold';
+
+
+      const badge =
+        document.getElementById('approval-badge');
+
+
+      if (state.approval_pending) {
+
+        badge.innerText =
+          '⚡ INTERCEPT / APPROVAL REQUIRED';
+
+        badge.className =
+          'mt-0.5 block w-max px-2.5 py-0.5 rounded text-[10px] font-mono bg-cyber-amber/20 text-cyber-amber border border-cyber-amber/50 animate-pulse';
+
+      } else {
+
+        badge.innerText =
+          'CLEAR / NO INTERCEPT';
+
+        badge.className =
+          'mt-0.5 block w-max px-2.5 py-0.5 rounded text-[10px] font-mono bg-cyber-black text-slate-400 border border-slate-700';
+
+      }
+
+    });
+
+  </script>
+
+</body>
+
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>AETHERIS | Cybernetic Neural Matrix</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+
+      theme: {
+        extend: {
+          fontFamily: {
+            mono: ['JetBrains Mono', 'monospace'],
+            sans: ['Plus Jakarta Sans', 'sans-serif']
+          },
+
+          colors: {
+            cyber: {
+              black: '#030708',
+              surface: '#091214',
+              neon: '#00ff9d',
+              cyan: '#00f0ff',
+              emerald: '#10b981',
+              amber: '#ffb703'
+            }
+          },
+
+          animation: {
+            'flow-down': 'flowDown 2s linear infinite',
+            'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+            'border-run': 'borderRun 4s linear infinite'
+          },
+
+          keyframes: {
+            flowDown: {
+              '0%': {
+                transform: 'translateY(-100%)',
+                opacity: '0'
+              },
+              '50%': {
+                opacity: '1'
+              },
+              '100%': {
+                transform: 'translateY(100%)',
+                opacity: '0'
+              }
+            },
+
+            pulseGlow: {
+              '0%, 100%': {
+                opacity: '0.3',
+                transform: 'scale(1)'
+              },
+              '50%': {
+                opacity: '0.7',
+                transform: 'scale(1.08)'
+              }
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    body {
+      background-color: #020506;
+
+      background-image:
+        radial-gradient(
+          at 0% 0%,
+          rgba(0, 255, 157, 0.12) 0px,
+          transparent 40%
+        ),
+        radial-gradient(
+          at 100% 50%,
+          rgba(0, 240, 255, 0.1) 0px,
+          transparent 45%
+        ),
+        radial-gradient(
+          at 50% 100%,
+          rgba(16, 185, 129, 0.08) 0px,
+          transparent 50%
+        );
+
+      background-attachment: fixed;
+      perspective: 1000px;
+    }
+
+    .glass-hull {
+      background: rgba(9, 18, 20, 0.75);
+
+      backdrop-filter: blur(24px) saturate(220%);
+      -webkit-backdrop-filter: blur(24px) saturate(220%);
+
+      border: 1px solid rgba(0, 255, 157, 0.2);
+
+      box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.85),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.25);
+    }
+
+    .glass-card-compact {
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.08) 0%,
+          rgba(0, 255, 157, 0.02) 100%
+        ),
+        rgba(6, 14, 16, 0.8);
+
+      backdrop-filter: blur(16px);
+
+      border: 1px solid rgba(255, 255, 255, 0.12);
+
+      box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.7),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
+
+      transform-style: preserve-3d;
+
+      transition:
+        transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .glass-card-compact:hover {
+      border-color: rgba(0, 255, 157, 0.8);
+
+      box-shadow:
+        0 20px 40px -10px rgba(0, 0, 0, 0.9),
+        0 0 35px rgba(0, 255, 157, 0.35),
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.5);
+    }
+
+    .magic-connector {
+      position: relative;
+
+      width: 2px;
+      height: 28px;
+
+      margin: 0 auto;
+
+      background: rgba(0, 255, 157, 0.15);
+
+      overflow: hidden;
+    }
+
+    .magic-particle {
+      position: absolute;
+
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 100%;
+
+      background:
+        linear-gradient(
+          180deg,
+          transparent,
+          #00ff9d,
+          #00f0ff,
+          transparent
+        );
+
+      animation: flowDown 1.4s linear infinite;
+    }
+
+    .magic-node {
+      position: absolute;
+
+      top: 50%;
+      left: 50%;
+
+      transform: translate(-50%, -50%);
+
+      width: 8px;
+      height: 8px;
+
+      background: #00ff9d;
+
+      border-radius: 50%;
+
+      box-shadow: 0 0 12px #00ff9d;
+    }
+  </style>
+</head>
+
+<body
+  class="text-slate-100 min-h-screen font-sans flex flex-col justify-between p-4 md:p-8 selection:bg-cyber-neon selection:text-black"
+>
+
+  <!-- Ambient Light Nodes -->
+
+  <div
+    class="fixed top-10 left-10 w-96 h-96 bg-cyber-neon/10 rounded-full blur-[130px] pointer-events-none animate-pulse-glow"
+  ></div>
+
+  <div
+    class="fixed bottom-10 right-10 w-96 h-96 bg-cyber-cyan/10 rounded-full blur-[130px] pointer-events-none animate-pulse-glow"
+  ></div>
+
+
+  <div class="max-w-4xl mx-auto w-full space-y-5 z-10">
+
+    <!-- Header -->
+
+    <header
+      class="glass-hull rounded-2xl p-5 flex flex-col sm:flex-row justify-between items-center gap-4 relative"
+    >
+
+      <div class="flex items-center space-x-4">
+
+        <div
+          class="w-11 h-11 rounded-xl bg-gradient-to-tr from-cyber-neon to-cyber-cyan p-[1px] shadow-[0_0_20px_rgba(0,255,157,0.4)]"
+        >
+
+          <div
+            class="w-full h-full bg-cyber-black rounded-[11px] flex items-center justify-center"
+          >
+
+            <svg
+              class="w-6 h-6 text-cyber-neon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 10V3L4 14h7v7l9-11h-7z"
+              />
+            </svg>
+
+          </div>
+
+        </div>
+
+
+        <div>
+
+          <h1
+            class="text-2xl font-black tracking-tight text-white flex items-center gap-2"
+          >
+            NEXUS OS
+
+            <span
+              class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyber-neon/20 border border-cyber-neon/50 text-cyber-neon"
+            >
+              v5.2 HYPER-CORE
+            </span>
+          </h1>
+
+          <p
+            class="text-[11px] font-mono text-slate-400 tracking-wider uppercase"
+          >
+            Autonomous Multi-Agent Neural Network
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- SSE Indicator -->
+
+      <div
+        class="flex items-center space-x-2.5 bg-cyber-black/90 border border-cyber-neon/40 px-3.5 py-1.5 rounded-xl"
+      >
+
+        <div class="relative flex h-2.5 w-2.5">
+
+          <span
+            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyber-neon opacity-75"
+          ></span>
+
+          <span
+            class="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyber-neon"
+          ></span>
+
+        </div>
+
+        <span
+          class="text-xs font-mono font-bold tracking-widest text-cyber-neon"
+        >
+          SSE BUS ACTIVE
+        </span>
+
+      </div>
+
+    </header>
+
+
+    <!-- Telemetry Deck -->
+
+    <div
+      class="glass-hull rounded-2xl p-4 grid grid-cols-1 md:grid-cols-3 gap-4 border-cyber-cyan/30"
+    >
+
+      <div>
+
+        <span
+          class="text-[9px] font-mono font-bold tracking-widest uppercase text-cyber-cyan"
+        >
+          ACTIVE PIPELINE SIGNAL
+        </span>
+
+        <p
+          id="active-task"
+          class="text-xs font-mono text-slate-100 truncate mt-0.5"
+        >
+          Monitoring Stream Bus...
+        </p>
+
+      </div>
+
+
+      <div>
+
+        <span
+          class="text-[9px] font-mono font-bold tracking-widest uppercase text-cyber-cyan"
+        >
+          GATEWAY CHECKPOINT
+        </span>
+
+        <div
+          id="approval-badge"
+          class="mt-0.5 block w-max px-2.5 py-0.5 rounded text-[10px] font-mono bg-cyber-black text-slate-400 border border-slate-700"
+        >
+          CLEAR / NO INTERCEPT
+        </div>
+
+      </div>
+
+
+      <div>
+
+        <span
+          class="text-[9px] font-mono font-bold tracking-widest uppercase text-cyber-cyan"
+        >
+          DRIFT / RISK HORIZON
+        </span>
+
+        <p
+          id="risk-score"
+          class="text-xs font-mono text-cyber-neon font-bold mt-0.5"
+        >
+          0.15 (NOMINAL OPERATIONAL)
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- Agent Cards -->
+
+    <section class="space-y-0">
+
+      <h2
+        class="text-[10px] font-mono font-bold uppercase tracking-widest text-cyber-neon mb-3 flex items-center gap-2"
+      >
+
+        <span
+          class="w-1.5 h-1.5 rounded-full bg-cyber-neon"
+        ></span>
+
+        DEPLOYABLE NEURAL MODULES
+
+      </h2>
+
+
+      <!-- Card 1 -->
+
+      <div
+        class="glass-card-compact rounded-2xl p-4 flex items-center justify-between gap-4 group cursor-pointer"
+        onclick="navigateTo('templates/01-copilot/index.html')"
+      >
+
+        <div class="flex items-center space-x-4">
+
+          <div
+            class="w-11 h-11 rounded-xl bg-cyber-neon/10 border border-cyber-neon/30 flex items-center justify-center shrink-0 group-hover:bg-cyber-neon transition-all duration-300"
+          >
+
+            <svg
+              class="w-6 h-6 text-cyber-neon group-hover:text-black transition-colors"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+              />
+            </svg>
+
+          </div>
+
+
+          <div>
+
+            <div class="flex items-center gap-2">
+
+              <h3
+                class="text-base font-bold text-white group-hover:text-cyber-neon transition-colors"
+              >
+                01. Copilot UI Synthesizer
+              </h3>
+
+              <span
+                class="text-[9px] font-mono bg-cyber-neon/20 text-cyber-neon px-2 py-0.5 rounded border border-cyber-neon/30"
+              >
+                Canvas
+              </span>
+
+            </div>
+
+            <p class="text-[11px] text-slate-400 mt-0.5">
+              Generates live UI component code and streams execution state to Python.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <button
+          class="px-4 py-2 rounded-xl bg-cyber-neon/10 group-hover:bg-cyber-neon text-[11px] font-mono font-bold text-cyber-neon group-hover:text-black border border-cyber-neon/30 transition-all shrink-0"
+        >
+          LAUNCH &rarr;
+        </button>
+
+      </div>
+
+
+      <!-- Connector 1 -->
+
+      <div class="magic-connector">
+        <div class="magic-particle"></div>
+        <div class="magic-node"></div>
+      </div>
+
+
+      <!-- Card 2 -->
+
+      <div
+        class="glass-card-compact rounded-2xl p-4 flex items-center justify-between gap-4 group cursor-pointer"
+        onclick="navigateTo('templates/02-agent-flow/index.html')"
+      >
+
+        <div class="flex items-center space-x-4">
+
+          <div
+            class="w-11 h-11 rounded-xl bg-cyber-cyan/10 border border-cyber-cyan/30 flex items-center justify-center shrink-0 group-hover:bg-cyber-cyan transition-all duration-300"
+          >
+
+            <svg
+              class="w-6 h-6 text-cyber-cyan group-hover:text-black transition-colors"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+
+          </div>
+
+
+          <div>
+
+            <div class="flex items-center gap-2">
+
+              <h3
+                class="text-base font-bold text-white group-hover:text-cyber-cyan transition-colors"
+              >
+                02. Human Gateway Flow
+              </h3>
+
+              <span
+                class="text-[9px] font-mono bg-cyber-cyan/20 text-cyber-cyan px-2 py-0.5 rounded border border-cyber-cyan/30"
+              >
+                Pipeline
+              </span>
+
+            </div>
+
+            <p class="text-[11px] text-slate-400 mt-0.5">
+              Intercepts high-risk tasks with interactive human approval checkpoints.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <button
+          class="px-4 py-2 rounded-xl bg-cyber-cyan/10 group-hover:bg-cyber-cyan text-[11px] font-mono font-bold text-cyber-cyan group-hover:text-black border border-cyber-cyan/30 transition-all shrink-0"
+        >
+          INSPECT &rarr;
+        </button>
+
+      </div>
+
+
+      <!-- Connector 2 -->
+
+      <div class="magic-connector">
+        <div class="magic-particle"></div>
+        <div class="magic-node"></div>
+      </div>
+
+
+      <!-- Card 3 -->
+
+      <div
+        class="glass-card-compact rounded-2xl p-4 flex items-center justify-between gap-4 group cursor-pointer"
+        onclick="navigateTo('templates/03-text-to-chart/index.html')"
+      >
+
+        <div class="flex items-center space-x-4">
+
+          <div
+            class="w-11 h-11 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center shrink-0 group-hover:bg-emerald-500 transition-all duration-300"
+          >
+
+            <svg
+              class="w-6 h-6 text-emerald-400 group-hover:text-black transition-colors"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+              />
+            </svg>
+
+          </div>
+
+
+          <div>
+
+            <div class="flex items-center gap-2">
+
+              <h3
+                class="text-base font-bold text-white group-hover:text-emerald-400 transition-colors"
+              >
+                03. Conversational Chart Engine
+              </h3>
+
+              <span
+                class="text-[9px] font-mono bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/30"
+              >
+                Analytics
+              </span>
+
+            </div>
+
+            <p class="text-[11px] text-slate-400 mt-0.5">
+              Queries backend datasets and renders vectorized charts in real time.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <button
+          class="px-4 py-2 rounded-xl bg-emerald-500/10 group-hover:bg-emerald-500 text-[11px] font-mono font-bold text-emerald-400 group-hover:text-black border border-emerald-500/30 transition-all shrink-0"
+        >
+          QUERY &rarr;
+        </button>
+
+      </div>
+
+
+      <!-- Connector 3 -->
+
+      <div class="magic-connector">
+        <div class="magic-particle"></div>
+        <div class="magic-node"></div>
+      </div>
+
+
+      <!-- Card 4 -->
+
+      <div
+        class="glass-card-compact rounded-2xl p-4 flex items-center justify-between gap-4 group cursor-pointer"
+        onclick="navigateTo('templates/04-ml-governance/index.html')"
+      >
+
+        <div class="flex items-center space-x-4">
+
+          <div
+            class="w-11 h-11 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0 group-hover:bg-amber-500 transition-all duration-300"
+          >
+
+            <svg
+              class="w-6 h-6 text-amber-400 group-hover:text-black transition-colors"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+              />
+            </svg>
+
+          </div>
+
+
+          <div>
+
+            <div class="flex items-center gap-2">
+
+              <h3
+                class="text-base font-bold text-white group-hover:text-amber-400 transition-colors"
+              >
+                04. ML Risk Guardrail Monitor
+              </h3>
+
+              <span
+                class="text-[9px] font-mono bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded border border-amber-500/30"
+              >
+                Security
+              </span>
+
+            </div>
+
+            <p class="text-[11px] text-slate-400 mt-0.5">
+              Monitors statistical drift, model safety thresholds, and system anomalies.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <button
+          class="px-4 py-2 rounded-xl bg-amber-500/10 group-hover:bg-amber-500 text-[11px] font-mono font-bold text-amber-400 group-hover:text-black border border-amber-500/30 transition-all shrink-0"
+        >
+          MONITOR &rarr;
+        </button>
+
+      </div>
+
+    </section>
+
+    <!-- Connector to Team Section -->
+    <div class="magic-connector">
+      <div class="magic-particle"></div>
+      <div class="magic-node"></div>
+    </div>
+
+    <!-- Team Section: Core Neural Operators -->
+    <section class="space-y-3">
+      <div class="flex items-center justify-between">
+        <h2
+          class="text-[10px] font-mono font-bold uppercase tracking-widest text-cyber-cyan flex items-center gap-2"
+        >
+          <span class="w-1.5 h-1.5 rounded-full bg-cyber-cyan"></span>
+          CORE DIRECTIVE // NEURAL ARCHITECTS
+        </h2>
+        <span class="text-[10px] font-mono text-slate-500 tracking-wider">SEC-LEVEL 04 // ACTIVE</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+
+        <!-- Team Member 1 -->
+        <div class="glass-card-compact rounded-2xl p-4 group cursor-pointer border-slate-700/60 hover:border-cyber-neon/80">
+          <div class="flex items-center space-x-3.5">
+            <div class="w-10 h-10 rounded-xl bg-cyber-neon/10 border border-cyber-neon/30 flex items-center justify-center shrink-0 group-hover:bg-cyber-neon/20 group-hover:scale-105 transition-all">
+              <span class="font-mono font-bold text-xs text-cyber-neon">BN</span>
+            </div>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center justify-between gap-1">
+                <h3 class="text-sm font-bold text-white group-hover:text-cyber-neon transition-colors truncate">
+                  Bhavyan Naidu
+                </h3>
+                <span class="text-[8px] font-mono px-1.5 py-0.5 rounded bg-cyber-neon/10 text-cyber-neon border border-cyber-neon/30 shrink-0">
+                  SYS_LEAD
+                </span>
+              </div>
+              <p class="text-[11px] font-mono text-slate-400 mt-0.5">Core Architecture & Matrix Orchestration</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Team Member 2 -->
+        <div class="glass-card-compact rounded-2xl p-4 group cursor-pointer border-slate-700/60 hover:border-cyber-cyan/80">
+          <div class="flex items-center space-x-3.5">
+            <div class="w-10 h-10 rounded-xl bg-cyber-cyan/10 border border-cyber-cyan/30 flex items-center justify-center shrink-0 group-hover:bg-cyber-cyan/20 group-hover:scale-105 transition-all">
+              <span class="font-mono font-bold text-xs text-cyber-cyan">DR</span>
+            </div>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center justify-between gap-1">
+                <h3 class="text-sm font-bold text-white group-hover:text-cyber-cyan transition-colors truncate">
+                  Deepak Reddy
+                </h3>
+                <span class="text-[8px] font-mono px-1.5 py-0.5 rounded bg-cyber-cyan/10 text-cyber-cyan border border-cyber-cyan/30 shrink-0">
+                  ENG_OPS
+                </span>
+              </div>
+              <p class="text-[11px] font-mono text-slate-400 mt-0.5">Distributed Pipelines & Stream Bus</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Team Member 3 -->
+        <div class="glass-card-compact rounded-2xl p-4 group cursor-pointer border-slate-700/60 hover:border-emerald-400/80">
+          <div class="flex items-center space-x-3.5">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center shrink-0 group-hover:bg-emerald-500/20 group-hover:scale-105 transition-all">
+              <span class="font-mono font-bold text-xs text-emerald-400">VV</span>
+            </div>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center justify-between gap-1">
+                <h3 class="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors truncate">
+                  Vishnu Vardhan Reddy
+                </h3>
+                <span class="text-[8px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 shrink-0">
+                  AI_RESEARCH
+                </span>
+              </div>
+              <p class="text-[11px] font-mono text-slate-400 mt-0.5">Neural Synthesis & Inference Tuning</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Team Member 4 -->
+        <div class="glass-card-compact rounded-2xl p-4 group cursor-pointer border-slate-700/60 hover:border-amber-400/80">
+          <div class="flex items-center space-x-3.5">
+            <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0 group-hover:bg-amber-500/20 group-hover:scale-105 transition-all">
+              <span class="font-mono font-bold text-xs text-amber-400">HB</span>
+            </div>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center justify-between gap-1">
+                <h3 class="text-sm font-bold text-white group-hover:text-amber-400 transition-colors truncate">
+                  Hemanth Batthala
+                </h3>
+                <span class="text-[8px] font-mono px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30 shrink-0">
+                  DEV_SEC
+                </span>
+              </div>
+              <p class="text-[11px] font-mono text-slate-400 mt-0.5">Guardrail Protocols & Model Governance</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+
+
+  <!-- Correct JS path -->
+
+  <script src="js/sse-client.js"></script>
+
+
+  <script>
+
+    /*
+     * Agent Navigation
+     *
+     * All paths are relative to:
+     *
+     * frontend/index.html
+     */
+
+    function navigateTo(url) {
+      window.location.href = url;
+    }
+
+
+    // 3D Card Tilt (automatically applies to all .glass-card-compact elements, including the team cards)
 
     document
       .querySelectorAll('.glass-card-compact')
